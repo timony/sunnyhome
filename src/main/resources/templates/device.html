@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+    <title>Sunny Home - Device Form</title>
+
+</head>
+<body>
+<!--*******************
+    Preloader start
+********************-->
+<div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+<!--*******************
+    Preloader end
+********************-->
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div th:replace="fragments/navheader :: navHeader(navtitle='Device')" class="header"></div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Device Form</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row">
+
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <form th:action="@{/device}" th:object="${device}" method="post" id="deviceform">
+                                <div class="col-xl-6  col-md-6 mb-4 snyll-invalid">
+                                    <p th:if="${#fields.hasErrors('deviceName')}" th:errors="*{deviceName}">Please enter some Device name.</p>
+                                    <p th:if="${#fields.hasErrors('turnOnApiUrl')}" th:errors="*{turnOnApiUrl}">Please enter turn on API url.</p>
+                                    <p th:if="${#fields.hasErrors('turnOffApiUrl')}" th:errors="*{turnOffApiUrl}">Please enter turn off API url.</p>
+                                </div>
+                                <input type="hidden" id="id" th:field="*{id}" th:value="${device.id}">
+                                <input th:if="${device.deviceStatus != null}" type="hidden" id="deviceStatus" th:field="*{deviceStatus}" th:value="${device.deviceStatus.id}">
+                                <div class="row">
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Device Name<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input th:value="${device.deviceName}" th:field="*{deviceName}" type="text" class="form-control solid" placeholder="Name" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Control Device Name<span class="text-danger scale5 ms-2">*</span></label>
+                                        <input th:value="${device.controlDeviceName}" th:field="*{controlDeviceName}" type="text" class="form-control solid" placeholder="ShellyPlugS" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Stated Power Consumption (W)</label>
+                                        <input th:value="${device.deviceConsumption}" th:field="*{deviceConsumption}" type="text" class="form-control solid" placeholder="2500" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Maximum Daily Consumption (kWh)</label>
+                                        <input th:value="${device.maxDailyPowerConsumption}" th:field="*{maxDailyPowerConsumption}" type="text" class="form-control solid" placeholder="2.4" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Maximum runtime after turn on (minutes)</label>
+                                        <input th:value="${device.maxRuntime}" th:field="*{maxRuntime}" type="text" class="form-control solid" placeholder="180" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Minimum runtime after turn on (minutes)</label>
+                                        <input th:value="${device.minRuntime}" th:field="*{minRuntime}" type="text" class="form-control solid" placeholder="60" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Device IP Address</label>
+                                        <input th:value="${device.deviceIP}" th:field="*{deviceIP}" type="text" class="form-control solid" placeholder="192.168.0.15" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Maximum daily runtime (minutes)</label>
+                                        <input th:value="${device.maxRuntimeDaily}" th:field="*{maxRuntimeDaily}" type="text" class="form-control solid" placeholder="180" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Turn On API url</label>
+                                        <input th:value="${device.turnOnApiUrl}" th:field="*{turnOnApiUrl}" type="text" class="form-control solid" placeholder="http://192.168.0.15/?turn=on" aria-label="name">
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Turn Off API url</label>
+                                        <input th:value="${device.turnOffApiUrl}" th:field="*{turnOffApiUrl}" type="text" class="form-control solid" placeholder="http://192.168.0.15/?turn=off" aria-label="name">
+                                    </div>
+                                    <!--
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Turn On POST Body Data</label>
+                                        <textarea th:value="${device.turnOnPostData}" th:field="*{turnOnPostData}" class="form-control" id="turnonpost" rows="5" placeholder="action: on" required=""></textarea>
+                                    </div>
+                                    <div class="col-xl-6 col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Turn Off POST Body Data</label>
+                                        <textarea th:value="${device.turnOffPostData}" th:field="*{turnOffPostData}" class="form-control" id="turnoffpost" rows="5" placeholder="action: off" required=""></textarea>
+                                    </div>-->
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Force Automation Status</label><br />
+                                        <input type="checkbox" class="form-check-input" name="forceActualStatus" th:checked="${device.forceActualStatus}" id="forceActualStatus" th:value="true">
+                                        <label class="form-check-label" for="forceActualStatus">Force Automation status</label>
+                                    </div>
+                                    <div class="col-xl-12 mb-4">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div>
+                                <button th:if="${device.id > 0}" class="btn btn-danger sweet-confirm" onclick="confirmDelete()">DELETE</button>
+                                <a href="javascript:document.getElementById('deviceform').reset();" class="btn btn-primary me-3">Reset</a>
+                                <a href="javascript:document.getElementById('deviceform').submit();" class="btn btn-secondary">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+    <!--**********************************
+        Footer end
+    ***********************************-->
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/plugins-init/sweetalert-init.js"></script>
+</body>
+</html>

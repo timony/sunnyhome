@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+    <title>Sunny Home - Trigger Form</title>
+
+</head>
+<body>
+<!--*******************
+    Preloader start
+********************-->
+<div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+<!--*******************
+    Preloader end
+********************-->
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div th:replace="fragments/navheader :: navHeader(navtitle='Trigger')" class="header"></div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Trigger Form</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form th:action="@{/trigger}" th:object="${trigger}" method="post" id="triggerform">
+                                <input type="hidden" id="id" th:field="*{id}" th:value="${trigger.id}">
+                                <div class="row">
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Trigger Name</label><br />
+                                        <div class="input-group">
+                                            <span class="input-group-text"> <i class="fa-solid fa-signature"></i> </span>
+                                            <input th:value="${trigger.triggerName}" th:field="*{triggerName}" type="text" class="form-control solid" placeholder="Trigger Name" aria-label="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4 snyll-invalid">
+                                        <p th:if="${#fields.hasErrors('triggerName')}" th:errors="*{triggerName}">Please enter some Trigger name.</p>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">InfoData Key</label><br />
+                                        <div class="input-group">
+                                            <span class="input-group-text"> <i class="fa-solid fa-key"></i> </span>
+                                            <input th:value="${trigger.infoDataKey}" th:field="*{infoDataKey}" type="text" class="form-control solid" placeholder="solax_total_power" aria-label="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4 snyll-invalid">
+                                        <p th:if="${#fields.hasErrors('infoDataKey')}" th:errors="*{infoDataKey}">Please enter some InfoData Key.</p>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Compare Operation</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"> <i class="fa-solid fa-greater-than-equal"></i> </span>
+                                            <select th:value="${trigger.triggerOperation}" th:field="*{triggerOperation}" class="default-select  form-control wide">
+                                                <option th:value="LESSTHAN" selected>< : Less than</option>
+                                                <option th:value="GREATERTHAN">> : Greater than</option>
+                                                <option th:value="EQUALS">= : Equals</option>
+                                                <option th:value="LESSOREQUAL"><= : Less or equal</option>
+                                                <option th:value="GREATEROREQUAL">>= : Greater or equal </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">InfoData Value</label><br />
+                                        <div class="input-group">
+                                            <span class="input-group-text"> <i class="fa-solid fa-hashtag"></i> </span>
+                                            <input th:value="${trigger.infoDataValue}" th:field="*{infoDataValue}" type="text" class="form-control solid" placeholder="2000" aria-label="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                        <label  class="form-label font-w600">Trigger Delay (seconds)</label><br />
+                                        <div class="input-group">
+                                            <span class="input-group-text"> <i class="fa-solid fa-clock-rotate-left"></i> </span>
+                                            <input th:value="${trigger.triggerDelay}" th:field="*{triggerDelay}" type="text" class="form-control solid" placeholder="2000" aria-label="name">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6  col-md-6 mb-4">
+                                    </div>
+
+
+
+                                    <div class="col-xl-12 mb-4">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="card-footer text-end">
+                            <div>
+                                <button th:if="${trigger.id > 0}" class="btn btn-danger sweet-confirm" onclick="confirmDelete()">DELETE</button>
+                                <a href="javascript:document.getElementById('triggerform').reset();" class="btn btn-primary me-3">Reset</a>
+                                <a href="javascript:document.getElementById('triggerform').submit();" class="btn btn-secondary">Submit</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+
+
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+    <!--**********************************
+        Footer end
+    ***********************************-->
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/plugins-init/sweetalert-init.js"></script>
+</body>
+</html>

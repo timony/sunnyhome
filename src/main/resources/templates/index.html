@@ -1,0 +1,298 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+	<title>Sunny Home</title>
+</head>
+<body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+		
+		<!--**********************************
+            Header start
+        ***********************************-->
+        <div th:replace="fragments/navheader :: navHeader(navtitle='Dashboard')" class="header"></div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+		
+		<!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xl-6">
+						<div class="widget-stat card bg-secondary">
+							<div class="card-body p-4">
+								<div class="media">
+									<span class="me-3">
+										<i class="fa-solid fa-bolt"></i>
+									</span>
+									<div class="media-body text-white text-end">
+										<p class="mb-1">Today's Self-consumed Yield</p>
+										<h3 class="text-white" th:text="${solax_today_self_consumed_yield} ?: '-'" id="solax_today_self_consumed_yield">76</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="widget-stat card bg-primary">
+							<div class="card-body p-4">
+								<div class="media">
+									<span class="me-3">
+										<i class="fa-solid fa-chart-line"></i>
+									</span>
+									<div class="media-body text-white text-end">
+										<p class="mb-1">Total Yield</p>
+										<h3 class="text-white" th:text="${solax_total_energy} ?: '-'" id="solax_total_energy">76</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="widget-stat card bg-warning">
+							<div class="card-body p-4">
+								<div class="media">
+									<span class="me-3">
+										<i class="fa-solid fa-chart-line"></i>
+									</span>
+									<div class="media-body text-white text-end">
+										<p class="mb-1">Today's Yield</p>
+										<h3 class="text-white" th:text="${solax_today_energy} ?: '-'" id="solax_today_yield">76</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-xl-6">
+						<div class="widget-stat card bg-primary">
+							<div class="card-body p-4">
+								<div class="media">
+									<span class="me-3">
+										<i class="fa-solid fa-chart-line"></i>
+									</span>
+									<div class="media-body text-white text-end">
+										<p class="mb-1">Total Grid Feed-in</p>
+										<h3 class="text-white" th:text="${solax_total_feedin_energy} ?: '-'" id="solax_total_feedin_energy">76</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<h1 style="margin-top: 25px; margin-bottom: 10px;">Solar Power Diagram</h1>
+					<div class="row">
+						<div class="col-md-4 offset-md-4 col-sm-12">
+							<div class="widget-stat card">
+								<div class="card-body p-4">
+									<div class="media ai-icon">
+										<span class="me-3 text-primary">
+											<img src="./my_images/solar_power.png" width="90" height="90" />
+										</span>
+										<div class="media-body">
+											<p class="mb-1">Solar Power</p>
+											<h4 th:text="${solax_solar_panels_power_total} ?: '-'" class="mb-0 text-responsive" id="solax_solar_panels_power_total">?</h4>
+											<span th:if="${solax_solar_panels_power_total_number != null}" class="badge badge-info text-responsive-smaller" th:text="${#numbers.formatDecimal(solax_solar_panels_power_total_number / 10 / total_power_installed, 1, 0)} + '%'">35%</span>
+											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_panels_voltage_1 != '-'}">
+												<table class="table table-narrow">
+													<tr>
+														<td>PV 1 Voltage</td><td th:text="${solax_panels_voltage_1} ?: '-'" id="solax_panels_voltage_1" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>PV 1 Current</td><td th:text="${solax_panels_current_1} ?: '-'" id="solax_panels_current_1" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>PV 2 Voltage</td><td th:text="${solax_panels_voltage_2} ?: '-'" id="solax_panels_voltage_2" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>PV 2 Current</td><td th:text="${solax_panels_current_2} ?: '-'" id="solax_panels_current_2" style="color: #fcba03"></td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 col-sm-12">
+							<div class="widget-stat card">
+								<div class="card-body p-4">
+									<div class="media ai-icon">
+											<span class="me-3 text-primary">
+												<img src="./my_images/battery.png" width="90" height="90" />
+											</span>
+										<div class="media-body">
+											<p class="mb-1">Battery</p>
+											<h4 th:text="${#numbers.formatDecimal(solax_battery_remaining_capacity_number, 1, 0) + ' %'} ?: '-'" id="solax_battery_remaining_capacity" class="mb-0 text-responsive">?</h4>
+											<span th:text="${solax_battery_power} ?: '-'" id="solax_battery_power" class="badge badge-info text-responsive-smaller">?</span>
+											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_today_battery_charge_energy != '-'}">
+												<table class="table table-narrow">
+													<tr>
+														<td>Today's Charge</td><td th:text="${solax_today_battery_charge_energy} ?: '-'" id="solax_today_battery_charge_energy" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>Today's Discharge</td><td th:text="${solax_today_battery_discharge_energy} ?: '-'" id="solax_today_battery_discharge_energy" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>Total Charge</td><td th:text="${solax_total_battery_charge_energy} ?: '-'" id="solax_total_battery_charge_energy" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>Temperature</td><td th:text="${solax_battery_temperature} ?: '-'" id="solax_battery_temperature" style="color: #fcba03"></td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-12">
+							<div class="widget-stat card">
+								<div class="card-body p-4">
+									<div class="media ai-icon">
+											<span class="me-3 text-primary">
+												<img src="./my_images/inverter.png" width="90" height="90" />
+											</span>
+										<div class="media-body">
+											<p class="mb-1">Inverter</p>
+											<h4 th:text="${solax_acpower} ?: '-'" id="solax_acpower" class="mb-0 text-responsive">?</h4>
+											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_power_now_phase_1 != '-'}">
+												<table class="table table-narrow">
+													<tr>
+														<td>Phase 1</td><td th:text="${solax_power_now_phase_1} ?: '-'" id="solax_power_now_phase_1" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>Phase 2</td><td th:text="${solax_power_now_phase_2} ?: '-'" id="solax_power_now_phase_2" style="color: #fcba03"></td>
+													</tr>
+													<tr>
+														<td>Phase 3</td><td th:text="${solax_power_now_phase_3} ?: '-'" id="solax_power_now_phase_3" style="color: #fcba03"></td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="arrow top in d-none d-md-block" id="solar_arrow_down">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="arrow left out d-none d-md-block" id="battery_arrow_out">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="arrow left in d-none d-md-block" id="battery_arrow_in">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="arrow right out d-none d-md-block" id="house_arrow_out">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="arrow bottom out d-none d-md-block" id="grid_arrow_down">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+								<div class="arrow bottom in d-none d-md-block" id="grid_arrow_up">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4 col-sm-12">
+							<div class="widget-stat card">
+								<div class="card-body p-4">
+									<div class="media ai-icon">
+										<span class="me-3 text-primary">
+											<img src="./my_images/power.png" width="90" height="90" />
+										</span>
+										<div class="media-body">
+											<p class="mb-1">House</p>
+											<h4 th:text="${solax_power_consumption_now} ?: '-'" id="solax_power_consumption_now" class="mb-0 text-responsive">?</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="offset-md-4 col-md-4 col-sm-12">
+							<div class="widget-stat card">
+								<div class="card-body p-4">
+									<div class="media ai-icon">
+													<span class="me-3 text-primary">
+														<img src="./my_images/grid.png" width="90" height="90" />
+													</span>
+										<div class="media-body">
+											<p class="mb-1">Grid Power</p>
+											<h4 th:text="${solax_exported_power} ?: '-'" id="solax_exported_power" class="mb-0 text-responsive">?</h4>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+        <!--**********************************
+            Footer end
+        ***********************************-->
+	</div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+	<th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+	<script src="./js/dashboard_reload.js"></script>
+</body>
+</html>

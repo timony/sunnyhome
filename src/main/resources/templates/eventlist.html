@@ -1,0 +1,103 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+    <title>Sunny Home - Events</title>
+</head>
+<body>
+<!--*******************
+    Preloader start
+********************-->
+<div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+<!--*******************
+    Preloader end
+********************-->
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div th:replace="fragments/navheader :: navHeader(navtitle='Event List')" class="header"></div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Events</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-xxl-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-header border-0 pb-0">
+                            <h4 class="card-title">Last 200 Events</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="DZ_W_TimeLine" class="widget-timeline dlab-scroll height800">
+                                <ul class="timeline">
+                                    <li th:each="event : ${events}">
+                                        <div class="timeline-badge danger" th:if="${event.eventType == T(cz.snyll.Sunny.domain.EventEntry.EventType).ERROR}"></div>
+                                        <div class="timeline-badge info" th:if="${event.eventType == T(cz.snyll.Sunny.domain.EventEntry.EventType).INFO}"></div>
+                                        <div class="timeline-badge warning" th:if="${event.eventType == T(cz.snyll.Sunny.domain.EventEntry.EventType).WARNING}"></div>
+                                        <div class="timeline-badge success" th:if="${event.eventType == T(cz.snyll.Sunny.domain.EventEntry.EventType).SUCCESS}"></div>
+                                        <a class="timeline-panel text-muted" href="#">
+                                            <span th:text="${#temporals.format(event.updatedTimestamp, 'dd-MM-yyyy HH:mm:ss')}" >29.5.2022 11:04:32</span>
+                                            <h6 class="mb-0" th:text="${event.EventMessage}">text</h6>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--**********************************
+        Content body end
+    ***********************************-->
+    <!--**********************************
+        Footer start
+    ***********************************-->
+    <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+    <!--**********************************
+        Footer end
+    ***********************************-->
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+<script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+<script src="./js/plugins-init/datatables.init.js"></script>
+</body>
+</html>

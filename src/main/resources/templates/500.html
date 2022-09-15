@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+    <title>SmartHome Solution</title>
+</head>
+<body class="vh-100">
+<div class="authincation h-100">
+    <div class="container h-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-5">
+                <div class="form-input-content text-center error-page">
+                    <h1 class="error-text fw-bold">500</h1>
+                    <h4><i class="fa fa-times-circle text-danger"></i> Internal Server Error</h4>
+                    <p>Woah! I did not expect that :(</p>
+                    <div>
+                        <a class="btn btn-primary" href=".">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

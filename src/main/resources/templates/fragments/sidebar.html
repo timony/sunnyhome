@@ -1,0 +1,41 @@
+<div th:fragment="baseSidebar(active)" class="dlabnav">
+    <div class="dlabnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a href="." aria-expanded="false">
+                <i class="flaticon-025-dashboard"></i>
+                <span class="nav-text">Dashboard</span>
+            </a>
+            </li>
+            <li><a href="/infodata" aria-expanded="false">
+                <i class="flaticon-044-menu"></i>
+                <span class="nav-text">Info Data</span>
+            </a>
+            </li>
+            <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-070-power"></i>
+                <span class="nav-text">Devices</span>
+            </a>
+                <ul aria-expanded="false">
+                    <li><a href="device">Add Device</a></li>
+                    <li><a href="devicelist">Device List</a></li>
+                    <li><a href="devicesetting">Add Device Setting</a></li>
+                    <li><a href="devicesettingslist">Device Settings list</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow " href="javascript:void()" aria-expanded="false">
+                <i class="flaticon-084-share"></i>
+                <span class="nav-text">Triggers</span>
+            </a>
+                <ul aria-expanded="false">
+                    <li><a href="trigger">New Trigger</a></li>
+                    <li><a href="triggerlist">Trigger List</a></li>
+                </ul>
+            </li>
+            <li><a href="/eventlist" aria-expanded="false">
+                <i class="flaticon-085-signal"></i>
+                <span class="nav-text">Events</span>
+            </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<div th:fragment="navHeader(navtitle)" class="header d-none d-xl-block">
+    <div href="index.html" class="header-content">
+        <nav class="navbar navbar-expand">
+            <div class="collapse navbar-collapse justify-content-between">
+                <div class="header-left">
+                    <div th:text="${navtitle}" class="dashboard_bar">
+                        Dash
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>

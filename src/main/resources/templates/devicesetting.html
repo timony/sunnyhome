@@ -1,0 +1,223 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+  <title>Sunny Home - Device Setting</title>
+
+</head>
+<body>
+<!--*******************
+    Preloader start
+********************-->
+<div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+<!--*******************
+    Preloader end
+********************-->
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+  <!--**********************************
+      Nav header start
+  ***********************************-->
+  <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+  <!--**********************************
+      Nav header end
+  ***********************************-->
+
+  <!--**********************************
+      Header start
+  ***********************************-->
+  <div th:replace="fragments/navheader :: navHeader(navtitle='Device Setting')" class="header"></div>
+  <!--**********************************
+      Header end ti-comment-alt
+  ***********************************-->
+
+  <!--**********************************
+      Sidebar start
+  ***********************************-->
+  <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+  <!--**********************************
+      Sidebar end
+  ***********************************-->
+
+  <!--**********************************
+      Content body start
+  ***********************************-->
+  <div class="content-body">
+    <!-- row -->
+    <div class="container-fluid">
+      <div class="d-flex align-items-center mb-4 flex-wrap">
+        <h4 class="fs-20 font-w600  me-auto">Device Setting Form</h4>
+      </div>
+      <div class="row">
+          <div th:if="${devices.empty}">
+              <p> First please create at least one <a href="./device">new Device</a>. </p>
+          </div>
+        <div class="col-xl-12" th:if="${!devices.empty}">
+          <div class="card">
+
+            <div class="card-body">
+              <form th:action="@{/devicesetting}" th:object="${deviceSetting}" method="post" id="devicesettingform">
+                <input type="hidden" id="id" th:field="*{id}" th:value="${deviceSetting.id}">
+                <div class="mb-3 row">
+                  <div class="col-xl-6  col-md-6 mb-4">
+                      <label  class="form-label font-w600">Device Setting Name</label><br />
+                      <div class="input-group">
+                          <span class="input-group-text"> <i class="fa-solid fa-signature"></i> </span>
+                          <input th:value="${deviceSetting.deviceSettingName}" th:field="*{deviceSettingName}" type="text" class="form-control solid" placeholder="Setting Name" aria-label="name" required>
+                      </div>
+                  </div>
+                  <div class="col-xl-6  col-md-6 mb-4 snyll-invalid">
+                      <p th:if="${#fields.hasErrors('deviceSettingName')}" th:errors="*{deviceSettingName}">Please enter some Device Setting name.</p>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <div class="col-xl-6  col-md-6 mb-4">
+                    <div class="mb-3">
+                        <label class="form-label font-w600">Select Owning Device:</label>
+                        <div class="input-group">
+                            <span class="input-group-text"> <i class="fa-solid fa-plug"></i> </span>
+                            <select name="device" id="device" th:field="*{device}" class="default-select  form-control wide" style="display: none;">
+                                <option th:each="device, iterStat : ${devices}" th:text="${device.deviceName}" th:value="${device.id}">1</option>
+                            </select>
+                        </div>
+                  </div>
+                  </div>
+                  <div class="col-xl-6  col-md-6 mb-4">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <div class="col-xl-3">
+                      <label  class="form-label font-w600">Device Setting Active</label><br />
+                      <input type="checkbox" class="form-check-input" name="isActive" th:checked="${deviceSetting.isActive}" id="isActive" th:value="true">
+                      <label class="form-check-label" for="isActive">Is Active</label>
+                  </div>
+                  <div class="col-xl-3">
+                      <label  class="form-label font-w600">Active in Away Mode</label><br />
+                      <input type="checkbox" class="form-check-input" name="activeInAwayMode" th:checked="${deviceSetting.activeInAwayMode}" id="activeInAwayMode" th:value="true">
+                      <label class="form-check-label" for="activeInAwayMode">Active in Away Mode</label>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <div class="col-xl-6  col-md-6 mb-4">
+                      <label  class="form-label font-w600">Device Priority</label>
+                      <div class="input-group">
+                          <span class="input-group-text"> <i class="fa-solid fa-arrow-down-1-9"></i> </span>
+                          <select th:value="${deviceSetting.deviceSettingPriority}" th:field="*{deviceSettingPriority}" class="default-select  form-control wide">
+                              <option th:value="1" selected>Highest</option>
+                              <option th:value="2">Very High</option>
+                              <option th:value="3">High</option>
+                              <option th:value="4">Normal</option>
+                              <option th:value="5">Lower</option>
+                              <option th:value="6">Lowest</option>
+                          </select>
+                      </div>
+                  </div>
+                  <div class="col-xl-6  col-md-6 mb-4">
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <div class="col-md-6 col-xl-3 col-xxl-6 mb-3">
+                      <label class="form-label">Time Window From</label>
+                      <div class="input-group clockpicker">
+                          <span class="input-group-text"> <i class="fa-solid fa-clock"></i> </span>
+                          <input autocomplete="off" type="text" th:value="${deviceSetting.timeWindowFromText}" name="timeWindowFrom" id="timeWindowFrom" class="form-control"><span class="input-group-text">
+                          <i class="fa fa-clock-o"></i></span>
+                      </div>
+                  </div>
+                  <div class="col-md-6 col-xl-3 col-xxl-6 mb-3">
+                      <label class="form-label">Time Window To</label>
+                      <div class="input-group clockpicker">
+                          <span class="input-group-text"> <i class="fa-solid fa-clock"></i> </span>
+                          <input autocomplete="off" type="text" th:value="${deviceSetting.timeWindowToText}" name="timeWindowTo" id="timeWindowTo" class="form-control"><span class="input-group-text">
+                          <i class="fa fa-clock-o"></i></span>
+                      </div>
+                  </div>
+                </div>
+                <div class="mb-3 row">
+                  <div class="col-xl-12">
+                      <label  class="form-label font-w600">Select required Triggers (all must be evaluated to true to turn on the device)</label>
+                      <fieldset>
+                          <div class="row">
+                              <div class="col-xl-3 col-md-3 mb-2" th:each="trigger, iterStat : ${triggers}">
+                                  <div class="form-check mb-2">
+                                      <input type="checkbox" name="triggers" class="form-check-input" th:id="${trigger.id}" th:field="*{triggers}" th:value="${trigger.id}">
+                                      <label class="form-check-label" th:for="${trigger.id}" th:text="${trigger.triggerName}">Trigger 1</label>
+                                  </div>
+                              </div>
+                          </div>
+                      </fieldset>
+                  </div>
+                </div>
+                  <div class="col-xl-12 mb-4">
+
+                  </div>
+
+              </form>
+            </div>
+            <div class="card-footer text-end">
+              <div>
+                  <button th:if="${deviceSetting.id > 0}" class="btn btn-danger sweet-confirm" onclick="confirmDelete()">DELETE</button>
+                <a href="javascript:document.getElementById('devicesettingform').reset();" class="btn btn-primary me-3">Reset</a>
+                <a href="javascript:document.getElementById('devicesettingform').submit();" class="btn btn-secondary">Submit</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--**********************************
+      Content body end
+  ***********************************-->
+
+
+  <!--**********************************
+      Footer start
+  ***********************************-->
+  <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+  <!--**********************************
+      Footer end
+  ***********************************-->
+</div>
+<!--**********************************
+    Main wrapper end
+***********************************-->
+
+<!--**********************************
+    Scripts
+***********************************-->
+<th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+<script src="./vendor/clockpicker/js/bootstrap-clockpicker.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/plugins-init/sweetalert-init.js"></script>
+<script>
+	(function($) {
+    "use strict"
+
+    // Clock pickers
+    var input = $('#single-input').clockpicker({
+        placement: 'bottom',
+        align: 'left',
+        autoclose: true,
+        'default': 'now'
+    });
+
+    $('.clockpicker').clockpicker({
+        donetext: 'Done',
+    }).find('input').change(function () {
+        console.log(this.value);
+    });
+
+    $('#check-minutes').click(function (e) {
+        // Have to stop propagation here
+        e.stopPropagation();
+        input.clockpicker('show').clockpicker('toggleView', 'minutes');
+    });
+})(jQuery)
+</script>
+</body>
+</html>

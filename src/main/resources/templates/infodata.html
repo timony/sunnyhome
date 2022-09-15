@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: baseHead(~{::title})">
+    <title>Sunny Home</title>
+</head>
+<body>
+<!--*******************
+    Preloader start
+********************-->
+<div th:replace="fragments/preloader :: preloader()" id="preloader"></div>
+<!--*******************
+    Preloader end
+********************-->
+
+<!--**********************************
+    Main wrapper start
+***********************************-->
+<div id="main-wrapper">
+
+    <!--**********************************
+        Nav header start
+    ***********************************-->
+    <div th:replace="fragments/logo :: logo()" class="nav-header"></div>
+    <!--**********************************
+        Nav header end
+    ***********************************-->
+
+    <!--**********************************
+        Header start
+    ***********************************-->
+    <div th:replace="fragments/navheader :: navHeader(navtitle='InfoData')" class="header"></div>
+    <!--**********************************
+        Header end ti-comment-alt
+    ***********************************-->
+
+    <!--**********************************
+        Sidebar start
+    ***********************************-->
+    <div th:replace="fragments/sidebar :: baseSidebar(active='infodata')" class="dlabnav"></div>
+    <!--**********************************
+        Sidebar end
+    ***********************************-->
+
+    <!--**********************************
+        Content body start
+    ***********************************-->
+    <div class="content-body">
+        <!-- row -->
+        <div class="container-fluid">
+            <div class="d-flex align-items-center mb-4 flex-wrap">
+                <h4 class="fs-20 font-w600  me-auto">Info Data list</h4>
+            </div>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="table-responsive">
+                        <table class="table display mb-4 dataTablesCard job-table table-responsive-xl card-table" id="example5">
+                            <thead>
+                            <tr th:if="${infodatas.empty}">
+                                <td colspan="5"> No data Available </td>
+                            </tr>
+                            <tr>
+                                <th>Id</th>
+                                <th>Data Key</th>
+                                <th>Data Value</th>
+                                <th>Units</th>
+                                <th>Updated Time</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="infodata : ${infodatas}">
+                                <td th:text="${infodata.id}">1</td>
+                                <td th:text="${infodata.dataKey}">1</td>
+                                <td th:text="${infodata.dataValue}" class="wspace-no">Full-Time</td>
+                                <td th:text="${infodata.units}">12-01-2021</td>
+                                <td th:text="${infodata.dataFreshness}">24-01-2021</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!--**********************************
+                Content body end
+            ***********************************-->
+
+            <!--**********************************
+                Footer start
+            ***********************************-->
+            <div th:replace="fragments/footer :: baseFooter()" class="footer"></div>
+
+            <!--**********************************
+                Footer end
+            ***********************************-->
+        </div>
+        <!--**********************************
+            Main wrapper end
+        ***********************************-->
+
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <th:block th:replace="fragments/scripts :: baseScripts()"></th:block>
+        <script src="./vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="./js/plugins-init/datatables.init.js"></script>
+</body>
+</html>
