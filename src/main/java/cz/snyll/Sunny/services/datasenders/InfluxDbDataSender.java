@@ -18,6 +18,8 @@ public class InfluxDbDataSender implements RemoteDataSender {
     InfluxDBClient client;
 
     public InfluxDbDataSender(InfluxDbConfiguration influxDbConfiguration) {
+        if (influxDbConfiguration.getUrl() == null)
+            return;
         this.token = influxDbConfiguration.getApiToken();
         if (this.token == null)
             return;
@@ -28,6 +30,8 @@ public class InfluxDbDataSender implements RemoteDataSender {
 
     @Override
     public void SendData(InfoData infoData) {
+        if (this.client == null)
+            return;
         String data = "InfoData,dataKey=" + infoData.getDataKey() + " dataValue=" + infoData.getDataValue();
         //System.out.println("INFLUX: Sending remote data: " + data);
         WriteApiBlocking writeApi = this.client.getWriteApiBlocking();

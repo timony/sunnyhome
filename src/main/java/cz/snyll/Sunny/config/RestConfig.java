@@ -1,7 +1,7 @@
 package cz.snyll.Sunny.config;
 
+import org.apache.hc.client5.http.classic.HttpClient;
 import org.apache.http.client.config.RequestConfig;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -35,7 +35,7 @@ public class RestConfig {
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setMaxTotal(5);
         connectionManager.setDefaultMaxPerRoute(5);
-        CloseableHttpClient httpClient = HttpClientBuilder.create()
+        HttpClient httpClient = (HttpClient) HttpClientBuilder.create()
                 .setConnectionManager(connectionManager)
                 .setDefaultRequestConfig(requestConfig)
                 .build();

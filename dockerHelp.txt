@@ -1,0 +1,33 @@
+docker build -t snyll/sunnyhome:version0.5 --platform=arm64 .
+
+docker push snyll/sunnyhome:version0.5
+
+docker pull snyll/sunnyhome:version0.5
+
+docker stop sunnyhome
+
+docker rm sunnyhome
+
+docker run -d --restart always -p 8802:8443 --platform=linux/arm64/v8 --name sunnyhome --mount source=sunnyhome,target=/data snyll/sunnyhome:version0.5
+
+
+/var/lib/docker/volumes/sunnyhome/_data
+
+docker tag sha256:3e536724b5bbb33cd373b5bdf6e872bd5ec99802f4e45cf727d7390929adfcfd snyll/sunnyhome:version0.5
+
+
+keytool -genkeypair -alias sunnyhome -keyalg RSA -keysize 2048 -storetype PKCS12 -keystore sunnyhome.p12 -validity 3650
+
+
+
+
+INFLUXDB INSTALL
+1. create folder to store data
+mkdir /var/lib/influxdb && cd $_
+
+2. run docker container from the new folder
+docker run \
+    --name influxdb \
+    -p 8086:8086 \
+    --volume $PWD:/var/lib/influxdb2 \
+    influxdb:latest

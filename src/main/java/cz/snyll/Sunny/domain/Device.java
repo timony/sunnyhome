@@ -25,7 +25,7 @@ public class Device {
     @Size(min = 3, message = "Please enter some Device name at least 3 characters long.")
     private String deviceName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "device", fetch = FetchType.EAGER)
     private Set<DeviceSetting> deviceSettings;
 
     private int deviceConsumption;          // stated consumption in Watts

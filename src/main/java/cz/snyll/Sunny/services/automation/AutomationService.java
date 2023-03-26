@@ -39,8 +39,8 @@ public class AutomationService {
             // first collect all data for the device
             DeviceInfoCollector deviceInfoCollector = DeviceInfoCollectorFactory.createDeviceInfoCollector(device, eventEntryManagerService);
             if (deviceInfoCollector != null) {
-                if (device.getDeviceStatus().getLastDayTotalConsumption() == 0)
-                    device.getDeviceStatus().setLastDayTotalConsumption(deviceInfoCollector.getTotalConsumption());
+                if (device.getDeviceStatus().getLastDayTotalConsumption() <= 0)
+                    device.getDeviceStatus().setLastDayTotalConsumption(0f);
                 device.getDeviceStatus().setCurrentConsumption(deviceInfoCollector.getCurrentConsumption());
                 device.getDeviceStatus().setTotalConsumption(deviceInfoCollector.getTotalConsumption());
                 device.getDeviceStatus().setTodayConsumption(deviceInfoCollector.getTodayConsumption());

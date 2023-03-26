@@ -87,7 +87,7 @@
 									</span>
 									<div class="media-body text-white text-end">
 										<p class="mb-1">Today's Yield</p>
-										<h3 class="text-white" th:text="${solax_today_energy} ?: '-'" id="solax_today_yield">76</h3>
+										<h3 class="text-white" th:text="${solax_today_energy} ?: '-'" id="solax_today_energy">76</h3>
 									</div>
 								</div>
 							</div>
@@ -123,19 +123,31 @@
 											<p class="mb-1">Solar Power</p>
 											<h4 th:text="${solax_solar_panels_power_total} ?: '-'" class="mb-0 text-responsive" id="solax_solar_panels_power_total">?</h4>
 											<span th:if="${solax_solar_panels_power_total_number != null}" class="badge badge-info text-responsive-smaller" th:text="${#numbers.formatDecimal(solax_solar_panels_power_total_number / 10 / total_power_installed, 1, 0)} + '%'">35%</span>
-											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_panels_voltage_1 != '-'}">
+											<div style="padding: 15px;" class="d-lg-none d-xl-block" th:if="${solax_panels_voltage_1 != '-'}">
 												<table class="table table-narrow">
-													<tr>
+													<tr th:if="${solax_panels_voltage_1_number > 0}">
 														<td>PV 1 Voltage</td><td th:text="${solax_panels_voltage_1} ?: '-'" id="solax_panels_voltage_1" style="color: #fcba03"></td>
 													</tr>
-													<tr>
+													<tr th:if="${solax_panels_current_1_number > 0}">
 														<td>PV 1 Current</td><td th:text="${solax_panels_current_1} ?: '-'" id="solax_panels_current_1" style="color: #fcba03"></td>
 													</tr>
-													<tr>
+													<tr th:if="${solax_panels_voltage_2_number > 0}">
 														<td>PV 2 Voltage</td><td th:text="${solax_panels_voltage_2} ?: '-'" id="solax_panels_voltage_2" style="color: #fcba03"></td>
 													</tr>
-													<tr>
+													<tr th:if="${solax_panels_current_2_number > 0}">
 														<td>PV 2 Current</td><td th:text="${solax_panels_current_2} ?: '-'" id="solax_panels_current_2" style="color: #fcba03"></td>
+													</tr>
+													<tr th:if="${solax_panels_voltage_3_number > 0}">
+														<td>PV 3 Voltage</td><td th:text="${solax_panels_voltage_3} ?: '-'" id="solax_panels_voltage_3" style="color: #fcba03"></td>
+													</tr>
+													<tr th:if="${solax_panels_current_3_number > 0}">
+														<td>PV 3 Current</td><td th:text="${solax_panels_current_3} ?: '-'" id="solax_panels_current_3" style="color: #fcba03"></td>
+													</tr>
+													<tr th:if="${solax_panels_voltage_4_number > 0}">
+														<td>PV 3 Voltage</td><td th:text="${solax_panels_voltage_4} ?: '-'" id="solax_panels_voltage_4" style="color: #fcba03"></td>
+													</tr>
+													<tr th:if="${solax_panels_current_4_number > 0}">
+														<td>PV 3 Current</td><td th:text="${solax_panels_current_4} ?: '-'" id="solax_panels_current_4" style="color: #fcba03"></td>
 													</tr>
 												</table>
 											</div>
@@ -147,7 +159,7 @@
 					</div>
 					<div class="row">
 						<div class="col-md-4 col-sm-12">
-							<div class="widget-stat card">
+							<div class="widget-stat card" th:if="${solax_battery_remaining_capacity != null}">
 								<div class="card-body p-4">
 									<div class="media ai-icon">
 											<span class="me-3 text-primary">
@@ -157,7 +169,7 @@
 											<p class="mb-1">Battery</p>
 											<h4 th:text="${#numbers.formatDecimal(solax_battery_remaining_capacity_number, 1, 0) + ' %'} ?: '-'" id="solax_battery_remaining_capacity" class="mb-0 text-responsive">?</h4>
 											<span th:text="${solax_battery_power} ?: '-'" id="solax_battery_power" class="badge badge-info text-responsive-smaller">?</span>
-											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_today_battery_charge_energy != '-'}">
+											<div style="padding: 15px;" class="d-lg-none d-xl-block" th:if="${solax_today_battery_charge_energy != '-'}">
 												<table class="table table-narrow">
 													<tr>
 														<td>Today's Charge</td><td th:text="${solax_today_battery_charge_energy} ?: '-'" id="solax_today_battery_charge_energy" style="color: #fcba03"></td>
@@ -188,7 +200,7 @@
 										<div class="media-body">
 											<p class="mb-1">Inverter</p>
 											<h4 th:text="${solax_acpower} ?: '-'" id="solax_acpower" class="mb-0 text-responsive">?</h4>
-											<div style="padding: 15px;" class="d-none d-xl-block" th:if="${solax_power_now_phase_1 != '-'}">
+											<div style="padding: 15px;" class="d-lg-none d-xl-block" th:if="${solax_power_now_phase_1 != '-'}">
 												<table class="table table-narrow">
 													<tr>
 														<td>Phase 1</td><td th:text="${solax_power_now_phase_1} ?: '-'" id="solax_power_now_phase_1" style="color: #fcba03"></td>
@@ -209,12 +221,12 @@
 									<span></span>
 									<span></span>
 								</div>
-								<div class="arrow left out d-none d-md-block" id="battery_arrow_out">
+								<div class="arrow left out d-none d-md-block" id="battery_arrow_out" th:if="${solax_battery_remaining_capacity != null}">
 									<span></span>
 									<span></span>
 									<span></span>
 								</div>
-								<div class="arrow left in d-none d-md-block" id="battery_arrow_in">
+								<div class="arrow left in d-none d-md-block" id="battery_arrow_in" th:if="${solax_battery_remaining_capacity != null}">
 									<span></span>
 									<span></span>
 									<span></span>

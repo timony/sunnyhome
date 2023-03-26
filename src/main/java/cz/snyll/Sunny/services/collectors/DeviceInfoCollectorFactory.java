@@ -13,6 +13,10 @@ public class DeviceInfoCollectorFactory {
             return new ShellyPlugSInfoCollector(device, eventEntryManagerService);
         if (device.getControlDeviceName().equals("Shelly1"))
             return new Shelly1InfoCollector(device, eventEntryManagerService);
+        if (device.getControlDeviceName().equals("Shelly1PM"))
+            return new Shelly1PMInfoCollector(device, eventEntryManagerService);
+        if (device.getControlDeviceName().equals("Shelly1PMPlus"))
+            return new Shelly1PMPlusInfoCollector(device, eventEntryManagerService);
         return null;
     }
 }

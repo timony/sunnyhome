@@ -12,6 +12,7 @@ public class MainConfiguration {
     private String solaxCloudApitoken;
     private String solaxWifiSn;
     private String solaxCloudApiUrl;
+    private String solaxLocalPassword;
     private boolean automation;
     private String userName;
     private String password;

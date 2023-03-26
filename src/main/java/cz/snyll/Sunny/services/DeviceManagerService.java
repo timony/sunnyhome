@@ -151,9 +151,11 @@ public class DeviceManagerService implements DeviceManager {
     @Override
     public boolean turnOnDevice(Device device, boolean manual) {
         if (deviceAPIService.TurnOnDevice(device) == true) {
-            device.getDeviceStatus().setLastStateChange(LocalDateTime.now());
+            if (device.getDeviceStatus().getCurrentState() == DeviceStatus.OperationStatus.OFF) {
+                device.getDeviceStatus().setLastStateChange(LocalDateTime.now());
+                device.getDeviceStatus().setCurrentRuntime(0);
+            }
             device.getDeviceStatus().setCurrentState(DeviceStatus.OperationStatus.ON);
-            device.getDeviceStatus().setCurrentRuntime(0);
             if (manual == true) {
                 device.getDeviceStatus().setManualOverride(true);
                 device.getDeviceStatus().setOverriddenUntil(LocalDateTime.now().plusHours(1));

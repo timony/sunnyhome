@@ -75,7 +75,6 @@ public class DataCollectorSolaxCloud extends DataCollectorAbstractService {
             Float currentConsumption = acPower - feedinPower;
             dataMap.put("solax_power_consumption_now", new AbstractMap.SimpleEntry<String, String>(Float.toString(Math.abs(currentConsumption)), "W"));
 
-            //https://www.solaxcloud.com:9443/proxy/api/getRealtimeInfo.do?tokenId=202205280150091994872411&sn=SWC8WLUQYD
             this.SaveInfoData(dataMap);
 
         } catch (Exception e) {

@@ -21,6 +21,7 @@ function refresh ( jQuery ) {
                     }
                     var parsedVal = parseFloat(val);
                     $("#"+response[i].dataKey).text(parsedVal.toFixed(2).replace(/[.,]00$/, "") + " " + response[i].units);
+                    $("#"+response[i].dataKey).prop('title', "Data Freshness: " + new Date(Date.parse(response[i].dataFreshness)).toLocaleString());
 
                     if (response[i].dataKey == "solax_exported_power" && parsedVal < 0) {
                         $("#grid_arrow_down").children().hide();

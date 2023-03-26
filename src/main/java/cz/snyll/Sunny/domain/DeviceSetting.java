@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Set;
 
+@Table(name = "devicesettings")
 @Entity
 public class DeviceSetting {
     @Setter
